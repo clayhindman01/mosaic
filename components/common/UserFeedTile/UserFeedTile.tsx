@@ -1,19 +1,23 @@
 import { Dimensions, Image, StyleSheet, View } from "react-native";
-import { basicAuth, getImageURL } from "../../../services/server/serverConfig";
+import { getImageURL } from "../../../services/server/serverConfig";
 import { TileType } from "../../../types/TileType";
 import UserFeedProfilePhoto from "./UserFeedProfilePhoto";
+import UserFeedBottom from "./UserFeedBottom";
 
 export default function UserFeedTile({tile} : {tile: TileType}) {
     if (tile.image_path) return (
-        <View style={{flex: 1,marginTop: -50,}}>
+        <View style={{flex: 1,marginTop: -50, marginBottom: -65}}>
             <UserFeedProfilePhoto tile={tile} />
-        <Image
-            source={{
-                uri: getImageURL(tile.image_path),
-                headers: {Authorization: basicAuth}
-            }}
-            style={styles.image}
-        />
+            <Image
+                source={{
+                    uri: getImageURL(tile.image_path)
+                }}
+                style={[styles.image, {
+                    width: Dimensions.get("screen").width - 20,
+                    height: Dimensions.get("screen").width - 20
+                }]}
+            />
+            <UserFeedBottom tile={tile} />
         </View>
     )
     
@@ -21,8 +25,6 @@ export default function UserFeedTile({tile} : {tile: TileType}) {
 
 const styles = StyleSheet.create({
     image: {
-        width: Dimensions.get('window').width - 20,
-        height: Dimensions.get('window').width - 20,
         borderRadius: 16,
     }
 })
