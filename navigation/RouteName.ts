@@ -1,0 +1,1 @@
+export type RouteNameTypes = "Home" | "Search" | "Mosaic" | "Collective" | "Account"
