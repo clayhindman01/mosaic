@@ -1,19 +1,20 @@
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
-import { UserType } from "../../types/UserType";
-import StyledView from "../styled/styledView";
-import { basicAuth, getImageURL } from "../../services/server/serverConfig";
-import { useNavigation, useTheme } from "@react-navigation/native";
-import StyledText from "../styled/styledText";
-import { RootNavigationProp } from "../../navigation/RootNavigator";
+import { UserType } from "../../../types/UserType";
+import StyledView from "../../styled/styledView";
+import { basicAuth, getImageURL } from "../../../services/server/serverConfig";
+import { useNavigation } from "@react-navigation/native";
+import StyledText from "../../styled/styledText";
+import { RootNavigationProp } from "../../../navigation/RootNavigator";
+import { useAppTheme } from "../../../hooks/useAppTheme";
 
 export default function SearchResult({user}: {user: UserType}) {
-    const { colors } = useTheme();
+    const { colors } = useAppTheme();
     const navigation = useNavigation<RootNavigationProp>();
     return (
         <TouchableOpacity onPress={() => navigation.navigate("Account")}>
             <StyledView variant="none" style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Image
-                    source={user.user_photo != null ? { uri: getImageURL(user.user_photo), headers: { Authorization: basicAuth}}: require("../../assets/noPhoto.png")}
+                    source={user.user_photo != null ? { uri: getImageURL(user.user_photo), headers: { Authorization: basicAuth}}: require("../../../assets/noPhoto.png")}
                     style={[styles.image, {borderColor: colors.secondary}]}
                 />
                 <View>

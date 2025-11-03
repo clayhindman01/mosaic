@@ -20,8 +20,7 @@ const StyledText: React.FC<ThemedTextProps> = ({
   children,
   ...rest
 }) => {
-  // const scheme = useColorScheme();
-  const scheme = 'dark'
+  const scheme = useColorScheme();
   const currentTheme = theme[scheme ?? "light"];
 
   const textStyle: TextStyle[] = [

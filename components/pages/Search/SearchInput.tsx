@@ -1,13 +1,12 @@
 import { StyleSheet, TextInput, TouchableOpacity } from "react-native"
-import { UserType } from "../../types/UserType"
+import { UserType } from "../../../types/UserType"
 import { useEffect, useState } from "react"
-import StyledView from "../styled/styledView"
-import { useNavigation, useTheme } from "@react-navigation/native"
-import { searchUser } from "../../services/server/users/userApiFunctions"
-import { AxiosResponse } from "axios"
-import { ChevronLeft, Search } from "lucide-react-native"
-import StyledText from "../styled/styledText"
-import { RootNavigationProp } from "../../navigation/RootNavigator"
+import StyledView from "../../styled/styledView"
+import { useNavigation} from "@react-navigation/native"
+import { searchUser } from "../../../services/server/users/userApiFunctions"
+import { ChevronLeft} from "lucide-react-native"
+import { RootNavigationProp } from "../../../navigation/RootNavigator"
+import { useAppTheme } from "../../../hooks/useAppTheme"
 
 type Props = {
     setSearchResults: (user: UserType[]) => void
@@ -15,7 +14,7 @@ type Props = {
 
 export default function SearchInput({setSearchResults}: Props) {
     const [ textToSearchFor, setTextToSearchFor ] = useState<string>("");
-    const { colors } = useTheme();
+    const { colors } = useAppTheme();
 
     const navigation = useNavigation<RootNavigationProp>();
 

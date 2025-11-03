@@ -6,8 +6,7 @@ import { theme } from './components/styled/theme';
 
 export default function App() {
 
-  // const scheme = useColorScheme();
-  const scheme = "dark"
+  const scheme = useColorScheme();
 
   return (
     <NavigationContainer theme={scheme === "dark" ? theme.dark : theme.light}>

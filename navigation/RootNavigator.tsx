@@ -1,8 +1,7 @@
-import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { NativeStackNavigationOptions, NativeStackNavigationProp } from "@react-navigation/native-stack";
-import HomeScreen from "../components/pages/HomeScreen";
-import SearchScreen from "../components/pages/SearchScreen";
+import HomeScreen from "../components/pages/Home/HomeScreen";
+import SearchScreen from "../components/pages/Search/SearchScreen";
 import MosaicScreen from "../components/pages/MosaicScreen";
 import AccountScreen from "../components/pages/AccountScreen";
 import CollectiveScreen from "../components/pages/CollectiveScreen";

@@ -19,8 +19,7 @@ const StyledView: React.FC<AppViewProps> = ({
   ...rest
 }) => {
 
-    // const scheme = useColorScheme()
-    const scheme = "dark"
+    const scheme = useColorScheme()
     const themeColors = theme[scheme ?? "light"].colors;
 
   return (

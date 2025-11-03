@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../navigation/RootNavigator";
-import PageWrapper from "./PageWrapper";
-import { UserType } from "../../types/UserType";
-import SearchInput from "../common/SearchInput";
-import StyledText from "../styled/styledText";
+import { RootStackParamList } from "../../../navigation/RootNavigator";
+import PageWrapper from "../PageWrapper";
+import { UserType } from "../../../types/UserType";
+import SearchInput from "./SearchInput";
 import { FlatList } from "react-native";
-import SearchResult from "../common/SearchResult";
-import StyledView from "../styled/styledView";
+import SearchResult from "./SearchResult";
+import StyledView from "../../styled/styledView";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Search">;
 

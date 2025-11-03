@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import { TileType } from "../../../types/TileType";
+import { TileType } from "../../../../types/TileType";
 import { useTheme } from "@react-navigation/native";
-import { useAppTheme } from "../../../hooks/useAppTheme";
+import { useAppTheme } from "../../../../hooks/useAppTheme";
 
 type Emoji = {
     name: string,

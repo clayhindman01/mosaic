@@ -1,6 +1,6 @@
 import { Dimensions, Image, StyleSheet, View } from "react-native";
-import { getImageURL } from "../../../services/server/serverConfig";
-import { TileType } from "../../../types/TileType";
+import { getImageURL } from "../../../../services/server/serverConfig";
+import { TileType } from "../../../../types/TileType";
 import UserFeedProfilePhoto from "./UserFeedProfilePhoto";
 import UserFeedBottom from "./UserFeedBottom";
 

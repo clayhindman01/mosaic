@@ -25,6 +25,22 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+      "expo-font",
+      {
+          "fonts": [
+            "./assets/fonts/Tinos-Regular.ttf",
+            "./assets/fonts/Tinos-Bold.ttf",
+            "./assets/fonts/Tinos-Italic.ttf",
+            "./assets/fonts/Tinos-BoldItalic.ttf"
+          ],
+          "ios": {
+            "fonts": ["./assets/fonts/Tinos-Regular.ttf", "./assets/fonts/Tinos-Bold.ttf"]
+          }
+        }
+    ]
+  ]
   }
 }

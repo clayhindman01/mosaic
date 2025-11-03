@@ -7,7 +7,7 @@ import axios from "axios";
  * username: String, username to search for in database
  * setSearchResults: function, sets the state value of search result to the selected data
  */
-export const searchUser = async (search) => {
+export const searchUser = async (search: string) => {
   return new Promise((resolve, reject) => {
     try {
       resolve(axios.get(`${base_url}/searchUser/${search}`, authHeaders));
@@ -17,10 +17,10 @@ export const searchUser = async (search) => {
   });
 };
 
-export const addDBUser = (username, expo_push_token) => {
+export const addDBUser = (username: string, expo_push_token: string) => {
   return new Promise((resolve, reject) => {
     try {
-      const user = getFirebaseUser();
+      const user: any = getFirebaseUser();
       resolve(
         axios.post(
           base_url + "/createUser",
@@ -59,4 +59,30 @@ export const queryDBUserByFirebaseUID = async () => {
   } catch (e) {
     console.error("Exception in queryDBUserByFirebaseUID", e);
   }
+};
+
+export const queryDBUser = async (user_id_signed_in: number, user_id: number) => {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(
+        axios.get(
+          `${base_url}/getUser/${user_id_signed_in}/${user_id}`,
+          authHeaders
+        )
+      );
+    } catch (e) {
+      console.log(e);
+      reject(e);
+    }
+  });
+};
+
+export const queryTilesForUser = (uid: number) => {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(axios.get(base_url + `/getTilesForUser/${uid}`, authHeaders));
+    } catch (e) {
+      reject(e);
+    }
+  });
 };
