@@ -11,8 +11,8 @@ export default function SearchResult({user}: {user: UserType}) {
     const { colors } = useAppTheme();
     const navigation = useNavigation<RootNavigationProp>();
     return (
-        <TouchableOpacity onPress={() => navigation.navigate("Account")}>
-            <StyledView variant="none" style={{flexDirection: 'row', alignItems: 'center'}}>
+        <TouchableOpacity onPress={() => navigation.navigate("Account", {user: user})}>
+            <StyledView variant="none" style={{flexDirection: 'row', alignItems: 'center', padding: 5}}>
                 <Image
                     source={user.user_photo != null ? { uri: getImageURL(user.user_photo), headers: { Authorization: basicAuth}}: require("../../../assets/noPhoto.png")}
                     style={[styles.image, {borderColor: colors.secondary}]}

@@ -1,1 +1,1 @@
-export type RouteNameTypes = "Home" | "Search" | "Mosaic" | "Collective" | "Account"
+export type RouteNameTypes = "Home" | "Search" | "Mosaic" | "Collective" | "Account" | "Signup" | "Login"

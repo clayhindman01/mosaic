@@ -86,3 +86,13 @@ export const queryTilesForUser = (uid: number) => {
     }
   });
 };
+
+export const getSuggestedFriends = (body: {user_id: number}) => {
+    return new Promise((resolve, reject) => {
+        try {
+            resolve(axios.post(`${base_url}/getSuggestedFriends`, body, authHeaders))
+        } catch (e) {
+            reject(e)
+        }
+    })  
+}

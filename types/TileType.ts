@@ -19,5 +19,5 @@ export interface TileType {
     x_position: number;
     y_position: number;
     reactions: ReactionType[] | null;
-    comments: CommentType[] | null 
+    comments: CommentType[] 
 }

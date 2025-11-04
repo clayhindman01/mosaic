@@ -32,18 +32,16 @@ export default function AccountScreen({route}: Props) {
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const { colors } = useAppTheme()
-
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(() => setRefreshing(false), 1200);
   }, []);
 
   useEffect(() => {
-    queryDBUser(7,7).then((res: any) => {
+    queryDBUser(route.params.user.user_id, route.params.user.user_id).then((res: any) => {
       setUser(res.data[0])
     })
-    queryTilesForUser(7).then((res: any) => {
+    queryTilesForUser(route.params.user.user_id).then((res: any) => {
       setPosts(res.data)
       setIsLoading(false);
     })

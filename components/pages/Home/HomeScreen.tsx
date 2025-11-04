@@ -7,6 +7,7 @@ import { getUserFeedData } from "../../../services/server/tiles/tileApiFunctions
 import { TileType } from "../../../types/TileType";
 import UserFeedTile from "./UserFeedTile/UserFeedTile";
 import StyledView from "../../styled/styledView";
+import SuggestedUsers from "../Search/SuggestedUsers";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -34,18 +35,21 @@ export default function HomeScreen({ route }: Props) {
 
   return (
     <PageWrapper route={route}>
-        <FlatList
-            data={userFeedData}
-            snapToInterval={Dimensions.get("screen").width-8} 
-            decelerationRate="fast" 
-            bounces={false}
-            showsVerticalScrollIndicator={false}
-            renderItem ={(({item}: {item: TileType}) => (
-                <StyledView variant="none">
+        <StyledView variant="none">
+            <FlatList
+                data={userFeedData}
+                snapToInterval={Dimensions.get("screen").width-8} 
+                decelerationRate="fast" 
+                bounces={false}
+                showsVerticalScrollIndicator={false}
+                renderItem ={(({item}: {item: TileType}) => (
                     <UserFeedTile tile={item} key={item.tile_id} />
-                </StyledView>
-            ))}
-        />
+                ))}
+                ListEmptyComponent={() => (
+                    <SuggestedUsers />
+                )}
+            />
+        </StyledView>
     </PageWrapper>
   );
 }

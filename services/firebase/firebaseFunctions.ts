@@ -6,7 +6,7 @@ export const getFirebaseUser = () => {
 };
 
 // Register a user in firebase using
-export const registerFirebaseUser = async (state, navigation) => {
+export const registerFirebaseUser = async (state: {email: string, password: string}) => {
   return new Promise((resolve, reject) => {
     try {
       resolve(
@@ -19,7 +19,7 @@ export const registerFirebaseUser = async (state, navigation) => {
 };
 
 // Login a user with email and password
-export const loginUser = async (email, password) => {
+export const loginUser = async (email: string, password: string) => {
   try {
     return new Promise((resolve) => {
       resolve(signInWithEmailAndPassword(auth, email, password));

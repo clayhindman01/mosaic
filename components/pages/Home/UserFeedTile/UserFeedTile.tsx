@@ -6,7 +6,7 @@ import UserFeedBottom from "./UserFeedBottom";
 
 export default function UserFeedTile({tile} : {tile: TileType}) {
     if (tile.image_path) return (
-        <View style={{flex: 1,marginTop: -50, marginBottom: -65}}>
+        <View style={{flex: 1, marginTop: -45, marginBottom: -45}}>
             <UserFeedProfilePhoto tile={tile} />
             <Image
                 source={{

@@ -19,31 +19,31 @@ export default function NavBar<T extends keyof RootStackParamList>({route}: Prop
     const navigation = useNavigation<RootNavigationProp>()
     const { colors } = useTheme();
 
-    const handleIconClick = (routeName: RouteNameTypes) => {
-        navigation.navigate(routeName)
+const handleIconClick = (routeName: RouteNameTypes, params: any) => {
+        navigation.navigate(routeName, params)
     }
 
     const iconSize = 30;
 
     return (
         <StyledView variant="third" style={styles.container} shadow={true}>
-            <PressableIcon handleClick={handleIconClick} routeName="Home">
+            <PressableIcon handleClick={() => handleIconClick("Home", {})} routeName="Home">
                 <Home color={ route.name === "Home" ? colors.text : 'gray' } size={iconSize} />
             </PressableIcon>
 
-           <PressableIcon handleClick={handleIconClick} routeName="Search">
+           <PressableIcon handleClick={() => handleIconClick("Search", {})} routeName="Search">
                 <UserSearchIcon color={ route.name === "Search"? colors.text: 'gray'} size={iconSize} />
             </PressableIcon> 
 
-            <PressableIcon handleClick={handleIconClick} routeName="Mosaic">
+            <PressableIcon handleClick={() => handleIconClick("Mosaic", {})} routeName="Mosaic">
                 <EarthIcon color={ route.name === "Mosaic"? colors.text: 'gray'} size={iconSize} />
             </PressableIcon>
 
-            <PressableIcon handleClick={handleIconClick} routeName="Collective">
+            <PressableIcon handleClick={() => handleIconClick("Collective", {})} routeName="Collective">
                 <Component color={ route.name === "Collective"? colors.text: 'gray'} size={iconSize} />
             </PressableIcon>
 
-            <PressableIcon handleClick={handleIconClick} routeName="Account">
+            <PressableIcon handleClick={() => handleIconClick("Account", {user: {user_id: 7}})} routeName="Account">
                 <SquareUser color={ route.name === "Account"? colors.text: 'gray'} size={iconSize} />
             </PressableIcon>
         </StyledView>

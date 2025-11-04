@@ -17,7 +17,7 @@ export default function Header<T extends keyof RootStackParamList>({route} : Nav
     const navigation = useNavigation<RootNavigationProp>()
     const { colors } = useTheme();
 
-    const iconSize = 30;
+    const iconSize = 25;
 
     const SearchAndBackComponent = () => {
         return (
