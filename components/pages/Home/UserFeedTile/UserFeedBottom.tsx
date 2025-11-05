@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     reactionContainer: {
-        width: '50%',
+        width: 'auto',
         flexDirection: 'row',
         justifyContent: 'space-evenly'
     },

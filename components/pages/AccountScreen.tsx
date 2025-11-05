@@ -17,10 +17,9 @@ import {
 import StyledView from "../styled/styledView";
 import { UserType } from "../../types/UserType";
 import { queryDBUser, queryTilesForUser } from "../../services/server/users/userApiFunctions";
-import { AxiosResponse } from "axios";
-import { useAppTheme } from "../../hooks/useAppTheme";
 import { TileType } from "../../types/TileType";
 import { basicAuth, getImageURL } from "../../services/server/serverConfig";
+import { Settings } from "lucide-react-native";
 
 const { width } = Dimensions.get("window");
 
@@ -67,20 +66,17 @@ if (isLoading) {
         />
         <View style={styles.headerTextContainer}>
           <StyledText variant="h2">@{user?.display_name}</StyledText>
-          <StyledText variant="caption" style={styles.subtext}>{posts.length} tiles</StyledText>
+          <StyledText variant="body" style={styles.subtext}>{posts.length} tiles</StyledText>
         </View>
         <TouchableOpacity style={styles.settingsButton}>
+          <Settings />
         </TouchableOpacity>
       </StyledView>
-
-      {/* Divider */}
-      {/* <View style={styles.divider} /> */}
 
       {/* Posts */}
       {posts.length != 0 && <FlatList
         data={posts}
-        // keyExtractor={({item} : {item: TileType}) => item.tile_id}
-        numColumns={3}
+        numColumns={2}
         renderItem ={(({item}: {item: TileType}) => {
           if (item.image_path) return (
             <TouchableOpacity style={styles.postTile} activeOpacity={0.8}>
@@ -104,7 +100,7 @@ if (isLoading) {
   );
 }
 
-const tileSize = width / 3 - 2;
+const tileSize = width / 2 - 2;
 
 const styles = StyleSheet.create({
   container: {
@@ -115,9 +111,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingTop: 40,
-    paddingBottom: 12,
-    elevation: 2,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   avatar: {
     width: 70,

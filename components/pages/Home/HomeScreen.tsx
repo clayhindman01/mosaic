@@ -8,6 +8,7 @@ import { TileType } from "../../../types/TileType";
 import UserFeedTile from "./UserFeedTile/UserFeedTile";
 import StyledView from "../../styled/styledView";
 import SuggestedUsers from "../Search/SuggestedUsers";
+import { useUserContext } from "../../../services/userContext";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -15,12 +16,16 @@ export default function HomeScreen({ route }: Props) {
 
     const [userFeedData, setUserFeedData] = useState<TileType[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true)
+    const { user } = useUserContext();
 
     useEffect(() => {
-        getUserFeedData(7).then((res: any) => {
-            setUserFeedData(res.data)
-            setIsLoading(false)
-        })
+        if (user) {
+            getUserFeedData(user?.user_id).then((res: any) => {
+                setUserFeedData(res.data)
+                setIsLoading(false)
+            })
+        }
+        
     }, [])
 
     if (isLoading) {

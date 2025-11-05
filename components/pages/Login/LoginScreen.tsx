@@ -8,8 +8,12 @@ import { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { useAppTheme } from "../../../hooks/useAppTheme";
 import {  useNavigation } from "@react-navigation/native";
-import { loginUser } from "../../../services/firebase/firebaseFunctions";
+import { getFirebaseUser, loginUser } from "../../../services/firebase/firebaseFunctions";
 import Error from "./Error";
+import { useUserContext } from "../../../services/userContext";
+import { queryDBUserByFirebaseUID } from "../../../services/server/users/userApiFunctions";
+import { AxiosResponse } from "axios";
+import { UserType } from "../../../types/UserType";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
@@ -17,14 +21,18 @@ export default function LoginScreen({route}: Props) {
     const [ email, setEmail ] = useState<string>("")
     const [ password, setPassword ] = useState<string>("")
     const [ loginError, setLoginError ] = useState<string>("");
+    const { setUser } = useUserContext();
 
     const navigation = useNavigation<RootNavigationProp>();
     const { colors } = useAppTheme();
 
     const handleLoginPress = () => {
         loginUser(email, password)
-            .then(() => {
-                navigation.navigate("Home");
+            .then(async () => {
+                queryDBUserByFirebaseUID().then((res: any) => {
+                    setUser(res.data[0]);
+                    navigation.navigate('Home')
+                })
             }).catch((error) => {
                 setLoginError(error.toString())
             })

@@ -13,6 +13,9 @@ import { useEffect, useState } from "react";
 import { RouteNameTypes } from "./RouteName";
 import { ActivityIndicator } from "react-native";
 import StyledView from "../components/styled/styledView";
+import { getAuth } from "firebase/auth";
+import { queryDBUserByFirebaseUID } from "../services/server/users/userApiFunctions";
+import { useUserContext } from "../services/userContext";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -36,16 +39,25 @@ const screenOptions: NativeStackNavigationOptions = {
 export default function RootNavigator() {
   const [ initialRouteName, setInitialRouteName ] = useState<RouteNameTypes>()
   const [ isLoading, setIsLoading ] = useState<boolean>(true)
+  const { setUser } = useUserContext();
 
   useEffect(() => {
-    const user = getFirebaseUser();
-    console.log(user)
-    if (user) {
-      setInitialRouteName('Home');
-    } else {
-      setInitialRouteName("Login");
+    const auth = getAuth();
+
+    const checkAuthState = async () => {
+      await auth.authStateReady()
+      if (auth.currentUser) {
+        setInitialRouteName("Home");
+        queryDBUserByFirebaseUID().then((res: any) => {
+          setUser(res.data[0]);
+          setIsLoading(false);
+        })
+      } else {
+        setInitialRouteName("Login");
+        setIsLoading(false)
+      }
     }
-    setIsLoading(false)
+    checkAuthState();
   }, [])
 
   if (isLoading) {

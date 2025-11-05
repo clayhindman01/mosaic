@@ -1,7 +1,7 @@
 import { RouteProp, useNavigation, useTheme } from "@react-navigation/native";
 import { RootNavigationProp, RootStackParamList } from "../../navigation/RootNavigator";
 import StyledView from "../styled/styledView";
-import { Component, EarthIcon, Home, SquareUser, UserSearchIcon } from "lucide-react-native";
+import { Component, EarthIcon, Home, Search, SquareUser, UserSearchIcon } from "lucide-react-native";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { RouteNameTypes } from "../../navigation/RouteName";
 
@@ -31,17 +31,17 @@ const handleIconClick = (routeName: RouteNameTypes, params: any) => {
                 <Home color={ route.name === "Home" ? colors.text : 'gray' } size={iconSize} />
             </PressableIcon>
 
-           <PressableIcon handleClick={() => handleIconClick("Search", {})} routeName="Search">
-                <UserSearchIcon color={ route.name === "Search"? colors.text: 'gray'} size={iconSize} />
-            </PressableIcon> 
+           {/* <PressableIcon handleClick={() => handleIconClick("Search", {})} routeName="Search">
+                <Search color={ route.name === "Search"? colors.text: 'gray'} size={iconSize} />
+            </PressableIcon>  */}
 
             <PressableIcon handleClick={() => handleIconClick("Mosaic", {})} routeName="Mosaic">
                 <EarthIcon color={ route.name === "Mosaic"? colors.text: 'gray'} size={iconSize} />
             </PressableIcon>
 
-            <PressableIcon handleClick={() => handleIconClick("Collective", {})} routeName="Collective">
+            {/* <PressableIcon handleClick={() => handleIconClick("Collective", {})} routeName="Collective">
                 <Component color={ route.name === "Collective"? colors.text: 'gray'} size={iconSize} />
-            </PressableIcon>
+            </PressableIcon> */}
 
             <PressableIcon handleClick={() => handleIconClick("Account", {user: {user_id: 7}})} routeName="Account">
                 <SquareUser color={ route.name === "Account"? colors.text: 'gray'} size={iconSize} />

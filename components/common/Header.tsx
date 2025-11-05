@@ -4,7 +4,7 @@ import StyledText from "../styled/styledText";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { RouteProp, useNavigation, useTheme } from "@react-navigation/native";
 import { RootNavigationProp, RootStackParamList } from "../../navigation/RootNavigator";
-import { Bell, SquareUserIcon, UserSearchIcon } from "lucide-react-native";
+import { Bell, Search, SquareUserIcon, UserSearchIcon } from "lucide-react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 // type NavigationProps = NativeStackScreenProps<RootStackParamList, "Home">;
@@ -22,8 +22,8 @@ export default function Header<T extends keyof RootStackParamList>({route} : Nav
     const SearchAndBackComponent = () => {
         return (
             <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-                <StyledView variant="none">
-                   <UserSearchIcon color={colors.text} size={iconSize} /> 
+                <StyledView variant="none" >
+                   <Search color={colors.text} size={iconSize} /> 
                 </StyledView> 
             </TouchableOpacity>
         )

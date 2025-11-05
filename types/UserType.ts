@@ -9,5 +9,9 @@ export interface UserType {
     theme: "light" | "dark";
     deleted: boolean | null;
     date_created: Date,
-    
+}
+
+export interface UserContextType {
+    user: UserType | undefined;
+    setUser: (user: UserType | undefined) => void;
 }
