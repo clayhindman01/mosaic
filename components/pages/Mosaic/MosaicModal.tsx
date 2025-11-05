@@ -1,18 +1,19 @@
 import { ReactNode }from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import Modal from "react-native-modal";
-import { useAppTheme } from "../../hooks/useAppTheme";
+import { useAppTheme } from "../../../hooks/useAppTheme";
+import { TileType } from "../../../types/TileType";
 
 const screenHeight = Dimensions.get("window").height;
 
 type Props = {
     isVisible: boolean;
     setIsVisible: (input: boolean) => void;
-    isScrolling?: boolean
-    children: ReactNode
+    children: ReactNode;
+    tile: TileType | undefined
 }
 
-export default function BottomSheetModal({ isVisible, isScrolling, setIsVisible, children }: Props) {
+export default function MosaicModal({ isVisible, tile, setIsVisible, children }: Props) {
   const {colors} = useAppTheme();
 
   return (
@@ -23,10 +24,10 @@ export default function BottomSheetModal({ isVisible, isScrolling, setIsVisible,
         propagateSwipe={true}
         onBackdropPress={() => setIsVisible(false)}
         onSwipeComplete={() => setIsVisible(false)}
-        swipeDirection={isScrolling? [] : 'down'}
+        swipeDirection='down'
         style={styles.modal}
       >
-        <View style={[styles.sheet, {backgroundColor: colors.primary}]}>
+        <View style={[styles.sheet, {backgroundColor: tile? tile.primary_color : colors.primary}]}>
           <View style={styles.handle} />
             {children}  
         </View>
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
   sheet: {
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    padding: 20,
+    padding: 10,
     flex: 1,
     maxHeight: screenHeight * 0.5
   },

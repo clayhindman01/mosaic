@@ -19,7 +19,7 @@ export default function UserFeedBottom({tile}: {tile : TileType}) {
             <StyledView variant="secondary" style={[styles.reactionContainer, styles.generalContainer]}>
                 <Reactions tile={tile} />
             </StyledView>
-            <TouchableOpacity onPress={() =>setIsModalVisible(true)}>
+            <TouchableOpacity onPress={() => setIsModalVisible(true)}>
                 <StyledView variant="secondary" style={[styles.commentContainer, styles.generalContainer]}>
                     <MessageCircle color={colors.text} size={24}/>
                 </StyledView>

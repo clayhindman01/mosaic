@@ -4,9 +4,9 @@ import { TileType } from "../../../../types/TileType";
 import UserFeedProfilePhoto from "./UserFeedProfilePhoto";
 import UserFeedBottom from "./UserFeedBottom";
 
-export default function UserFeedTile({tile} : {tile: TileType}) {
+export default function UserFeedTile({tile, showBottom=true} : {tile: TileType, showBottom?: boolean}) {
     if (tile.image_path) return (
-        <View style={{flex: 1, marginTop: -45, marginBottom: -45}}>
+        <View style={{flex: 1, marginTop: -45, marginBottom: -50}}>
             <UserFeedProfilePhoto tile={tile} />
             <Image
                 source={{
@@ -17,7 +17,7 @@ export default function UserFeedTile({tile} : {tile: TileType}) {
                     height: Dimensions.get("screen").width - 20
                 }]}
             />
-            <UserFeedBottom tile={tile} />
+            {showBottom && <UserFeedBottom tile={tile} />}
         </View>
     )
     

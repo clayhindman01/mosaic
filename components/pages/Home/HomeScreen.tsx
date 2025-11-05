@@ -42,7 +42,7 @@ export default function HomeScreen({ route }: Props) {
         <StyledView variant="none">
             <FlatList
                 data={userFeedData}
-                snapToInterval={Dimensions.get("screen").width-8} 
+                snapToInterval={Dimensions.get("screen").width - 9 } 
                 decelerationRate="fast" 
                 bounces={false}
                 showsVerticalScrollIndicator={false}
