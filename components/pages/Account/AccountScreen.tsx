@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../navigation/RootNavigator";
-import PageWrapper from "./PageWrapper";
-import StyledText from "../styled/styledText";
+import { RootNavigationProp, RootStackParamList } from "../../../navigation/RootNavigator";
+import PageWrapper from "../PageWrapper";
+import StyledText from "../../styled/styledText";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
@@ -14,12 +14,13 @@ import {
   Dimensions,
   ActivityIndicator,
 } from "react-native";
-import StyledView from "../styled/styledView";
-import { UserType } from "../../types/UserType";
-import { queryDBUser, queryTilesForUser } from "../../services/server/users/userApiFunctions";
-import { TileType } from "../../types/TileType";
-import { basicAuth, getImageURL } from "../../services/server/serverConfig";
+import StyledView from "../../styled/styledView";
+import { UserType } from "../../../types/UserType";
+import { queryDBUser, queryTilesForUser } from "../../../services/server/users/userApiFunctions";
+import { TileType } from "../../../types/TileType";
+import { basicAuth, getImageURL } from "../../../services/server/serverConfig";
 import { Settings } from "lucide-react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 
@@ -30,6 +31,7 @@ export default function AccountScreen({route}: Props) {
   const [posts, setPosts] = useState<TileType[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { navigate } = useNavigation<RootNavigationProp>();
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -62,13 +64,13 @@ if (isLoading) {
       <StyledView style={styles.header} variant="none">
         <Image
           style={styles.avatar}
-          source={user?.user_photo != null ? { uri: getImageURL(user.user_photo), headers: { Authorization: basicAuth}}: require("../../assets/noPhoto.png")}
+          source={user?.user_photo != null ? { uri: getImageURL(user.user_photo), headers: { Authorization: basicAuth}}: require("../../../assets/noPhoto.png")}
         />
         <View style={styles.headerTextContainer}>
           <StyledText variant="h2">@{user?.display_name}</StyledText>
           <StyledText variant="body" style={styles.subtext}>{posts.length} tiles</StyledText>
         </View>
-        <TouchableOpacity style={styles.settingsButton}>
+        <TouchableOpacity style={styles.settingsButton} onPress={() => navigate("AccountMenu")}>
           <Settings />
         </TouchableOpacity>
       </StyledView>

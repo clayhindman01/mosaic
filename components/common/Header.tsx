@@ -38,7 +38,7 @@ export default function Header<T extends keyof RootStackParamList>({route} : Nav
     }
 
     return (
-        <StyledView rounded={true} variant="primary" style={styles.container}>
+        <StyledView rounded={true} variant="none" style={styles.container}>
             <SearchAndBackComponent />
             <StyledText center={true} style={{ fontSize: 26 }}>Mosaic</StyledText>
             <NotificationsAndAccountComponent />

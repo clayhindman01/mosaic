@@ -2,6 +2,7 @@
 import React from "react";
 import { Text, TextProps, useColorScheme, StyleSheet, TextStyle } from "react-native";
 import { theme } from "./theme";
+import { useUserContext } from "../../services/userContext";
 
 type Variant = keyof typeof theme.typography;
 type ColorKey = keyof typeof theme.light.colors;
@@ -20,13 +21,14 @@ const StyledText: React.FC<ThemedTextProps> = ({
   children,
   ...rest
 }) => {
-  const scheme = useColorScheme();
-  const currentTheme = theme[scheme ?? "light"];
+
+  const { user } = useUserContext();
+  const currentTheme = theme[user?.theme == 'dark' ? "dark" : 'light'].colors;
 
   const textStyle: TextStyle[] = [
     styles.base,
     theme.typography[variant],
-    { color: currentTheme.colors[color] },
+    { color: currentTheme[color] },
     center && { textAlign: "center" },
   ].filter(Boolean) as TextStyle[];
 

@@ -3,12 +3,11 @@ import type { NativeStackNavigationOptions, NativeStackNavigationProp } from "@r
 import HomeScreen from "../components/pages/Home/HomeScreen";
 import SearchScreen from "../components/pages/Search/SearchScreen";
 import MosaicScreen from "../components/pages/MosaicScreen";
-import AccountScreen from "../components/pages/AccountScreen";
+import AccountScreen from "../components/pages/Account/AccountScreen";
 import CollectiveScreen from "../components/pages/CollectiveScreen";
 import { UserType } from "../types/UserType";
 import LoginScreen from "../components/pages/Login/LoginScreen";
 import SignupScreen from "../components/pages/Signup/SignupScreen";
-import { getFirebaseUser } from "../services/firebase/firebaseFunctions";
 import { useEffect, useState } from "react";
 import { RouteNameTypes } from "./RouteName";
 import { ActivityIndicator } from "react-native";
@@ -16,6 +15,7 @@ import StyledView from "../components/styled/styledView";
 import { getAuth } from "firebase/auth";
 import { queryDBUserByFirebaseUID } from "../services/server/users/userApiFunctions";
 import { useUserContext } from "../services/userContext";
+import AccountMenuScreen from "../components/pages/Account/AccountMenuScreen";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -24,7 +24,8 @@ export type RootStackParamList = {
   Collective: undefined;
   Account: {user: UserType};
   Login: undefined;
-  Signup: undefined
+  Signup: undefined;
+  AccountMenu: undefined;
 };
 
 export type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -86,6 +87,7 @@ export default function RootNavigator() {
         <Stack.Screen name="Account" component={AccountScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
+        <Stack.Screen name="AccountMenu" component={AccountMenuScreen} />
     </Stack.Navigator>
   );
 }

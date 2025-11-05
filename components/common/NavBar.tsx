@@ -4,6 +4,7 @@ import StyledView from "../styled/styledView";
 import { Component, EarthIcon, Home, Search, SquareUser, UserSearchIcon } from "lucide-react-native";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { RouteNameTypes } from "../../navigation/RouteName";
+import { useUserContext } from "../../services/userContext";
 
 type Props<T extends keyof RootStackParamList> = {
     route: RouteProp<RootStackParamList, T>;
@@ -18,6 +19,7 @@ type PressableIconProps = {
 export default function NavBar<T extends keyof RootStackParamList>({route}: Props<T>) {
     const navigation = useNavigation<RootNavigationProp>()
     const { colors } = useTheme();
+    const { user } = useUserContext();
 
 const handleIconClick = (routeName: RouteNameTypes, params: any) => {
         navigation.navigate(routeName, params)
@@ -43,7 +45,7 @@ const handleIconClick = (routeName: RouteNameTypes, params: any) => {
                 <Component color={ route.name === "Collective"? colors.text: 'gray'} size={iconSize} />
             </PressableIcon> */}
 
-            <PressableIcon handleClick={() => handleIconClick("Account", {user: {user_id: 7}})} routeName="Account">
+            <PressableIcon handleClick={() => handleIconClick("Account", {user})} routeName="Account">
                 <SquareUser color={ route.name === "Account"? colors.text: 'gray'} size={iconSize} />
             </PressableIcon>
         </StyledView>

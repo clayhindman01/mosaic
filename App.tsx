@@ -10,10 +10,11 @@ import { UserType } from './types/UserType';
 export default function App() {
   const [ user, setUser ] = useState<UserType>();
   const scheme = useColorScheme();
+  console.log(user)
 
   return (
     <userContext.Provider value={{ user, setUser }}>
-      <NavigationContainer theme={scheme === "dark" ? theme.dark : theme.light}>
+      <NavigationContainer theme={user?.theme == "dark" ? theme.dark : theme.light}>
         <SafeAreaProvider>
           <RootNavigator />
         </SafeAreaProvider>

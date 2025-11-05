@@ -25,7 +25,6 @@ export default function HomeScreen({ route }: Props) {
                 setIsLoading(false)
             })
         }
-        
     }, [])
 
     if (isLoading) {
@@ -39,7 +38,7 @@ export default function HomeScreen({ route }: Props) {
     }
 
   return (
-    <PageWrapper route={route}>
+    <PageWrapper route={route}> 
         <StyledView variant="none">
             <FlatList
                 data={userFeedData}

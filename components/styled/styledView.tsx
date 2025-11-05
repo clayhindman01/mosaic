@@ -1,6 +1,7 @@
 import { View, ViewProps, StyleSheet, useColorScheme } from "react-native";
 import { theme } from "./theme";
 import { useTheme } from "@react-navigation/native";
+import { useUserContext } from "../../services/userContext";
 
 interface AppViewProps extends ViewProps {
   padded?: boolean;
@@ -19,8 +20,8 @@ const StyledView: React.FC<AppViewProps> = ({
   ...rest
 }) => {
 
-    const scheme = useColorScheme()
-    const themeColors = theme[scheme ?? "light"].colors;
+  const { user } = useUserContext();
+  const themeColors = theme[user?.theme == 'dark' ? "dark" : 'light'].colors;
 
   return (
     <View
