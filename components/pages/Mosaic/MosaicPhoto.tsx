@@ -24,7 +24,7 @@ export default function MosaicPhoto({ tile, rowLength }: Props) {
               uri: getImageURL(tile.image_path),
             }}
           />
-          <View style={{...StyleSheet.absoluteFillObject, backgroundColor: setOpacity(tile.primary_color, 0.6)}}></View>
+          <View style={{...StyleSheet.absoluteFillObject, backgroundColor: setOpacity(tile.primary_color, 0.4)}}></View>
         </>
       ) : null}
     </View>

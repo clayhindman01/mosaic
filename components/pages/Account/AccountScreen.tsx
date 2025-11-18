@@ -16,37 +16,59 @@ import {
 } from "react-native";
 import StyledView from "../../styled/styledView";
 import { UserType } from "../../../types/UserType";
-import { queryDBUser, queryTilesForUser } from "../../../services/server/users/userApiFunctions";
+import { addFriend, queryDBUser, queryTilesForUser, removeFriend } from "../../../services/server/users/userApiFunctions";
 import { TileType } from "../../../types/TileType";
 import { basicAuth, getImageURL } from "../../../services/server/serverConfig";
-import { Settings } from "lucide-react-native";
+import { Settings, UserMinus, UserPlus } from "lucide-react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useUserContext } from "../../../services/userContext";
 
 const { width } = Dimensions.get("window");
 
 type Props = NativeStackScreenProps<RootStackParamList, "Account">
 
 export default function AccountScreen({route}: Props) {
-  const [user, setUser] = useState<UserType>();
+  const { user } = useUserContext();
+  const [accountUser, setAccountUser] = useState<UserType>();
   const [posts, setPosts] = useState<TileType[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { navigate } = useNavigation<RootNavigationProp>();
+  const [isFollowing, setIsFollowing] = useState<boolean>();
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    setTimeout(() => setRefreshing(false), 1200);
+    queryTilesForUser(route.params.user.user_id).then((res:any) => {
+      setPosts(res.data)
+      setRefreshing(false)
+    })
   }, []);
 
   useEffect(() => {
-    queryDBUser(route.params.user.user_id, route.params.user.user_id).then((res: any) => {
-      setUser(res.data[0])
+    user && queryDBUser(user.user_id, route.params.user.user_id).then((res: any) => {
+      setAccountUser(res.data[0])
+      setIsFollowing(res.data[0].is_following == 1 )
     })
     queryTilesForUser(route.params.user.user_id).then((res: any) => {
       setPosts(res.data)
       setIsLoading(false);
     })
   }, [])
+
+  const handleFollowUserClick = () => {
+    if (user && accountUser) {
+      if (isFollowing) {
+        removeFriend(user.user_id, accountUser.user_id).then(() => {
+          setIsFollowing(false);
+        })
+      } else {
+        addFriend(user?.user_id, accountUser?.user_id).then(() => {
+          setIsFollowing(true)
+        })
+      }
+    }
+    
+  }
 
 if (isLoading) {
         return (
@@ -64,15 +86,22 @@ if (isLoading) {
       <StyledView style={styles.header} variant="none">
         <Image
           style={styles.avatar}
-          source={user?.user_photo != null ? { uri: getImageURL(user.user_photo), headers: { Authorization: basicAuth}}: require("../../../assets/noPhoto.png")}
+          source={accountUser?.user_photo != null ? { uri: getImageURL(accountUser.user_photo), headers: { Authorization: basicAuth}}: require("../../../assets/noPhoto.png")}
         />
         <View style={styles.headerTextContainer}>
-          <StyledText variant="h2">@{user?.display_name}</StyledText>
+          <StyledText variant="h2">@{accountUser?.display_name}</StyledText>
           <StyledText variant="body" style={styles.subtext}>{posts.length} tiles</StyledText>
         </View>
-        <TouchableOpacity style={styles.settingsButton} onPress={() => navigate("AccountMenu")}>
-          <Settings />
-        </TouchableOpacity>
+
+        {user?.user_id === accountUser?.user_id ? (
+          <TouchableOpacity style={styles.settingsButton} onPress={() => navigate("AccountMenu")}>
+              <Settings />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.settingsButton} onPress={handleFollowUserClick}>
+            {isFollowing ? <UserMinus/> : <UserPlus />}
+          </TouchableOpacity>
+        )}
       </StyledView>
 
       {/* Posts */}
@@ -81,7 +110,7 @@ if (isLoading) {
         numColumns={2}
         renderItem ={(({item}: {item: TileType}) => {
           if (item.image_path) return (
-            <TouchableOpacity style={styles.postTile} activeOpacity={0.8}>
+            <TouchableOpacity style={styles.postTile} activeOpacity={0.8} onPress={() => navigate("Tile", {tile: item})}>
               <Image source={{ uri: getImageURL(item.image_path) }} style={styles.postImage} />
             </TouchableOpacity>
           ) 
@@ -102,7 +131,7 @@ if (isLoading) {
   );
 }
 
-const tileSize = width / 2 - 2;
+const tileSize = width / 2 ;
 
 const styles = StyleSheet.create({
   container: {
@@ -146,9 +175,10 @@ const styles = StyleSheet.create({
   postTile: {
     width: tileSize,
     height: tileSize,
-    margin: 1,
+    marginRight: StyleSheet.hairlineWidth,
+    marginBottom: StyleSheet.hairlineWidth,
     backgroundColor: "#f0f0f0",
-    borderRadius: 4,
+    // borderRadius: 4,
     overflow: "hidden",
   },
   postImage: {

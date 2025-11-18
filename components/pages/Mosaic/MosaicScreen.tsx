@@ -24,7 +24,7 @@ export default function MosaicScreen({ route }: Props) {
   }, [])
 
   if (isLoading) return (
-    <PageWrapper route={route} showHeader={false}>
+    <PageWrapper route={route}>
       <View style={{flex: 1, justifyContent: 'center'}} >
         <ActivityIndicator  />
       </View>
@@ -32,7 +32,7 @@ export default function MosaicScreen({ route }: Props) {
   )
 
   return (
-    <PageWrapper route={route} showHeader={false}>
+    <PageWrapper route={route}>
       <StyledView variant="none">
         <FlatList
           data={previousMosaics}

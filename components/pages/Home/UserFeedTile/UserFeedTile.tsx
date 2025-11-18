@@ -20,7 +20,6 @@ export default function UserFeedTile({tile, showBottom=true} : {tile: TileType, 
             {showBottom && <UserFeedBottom tile={tile} />}
         </View>
     )
-    
 }
 
 const styles = StyleSheet.create({

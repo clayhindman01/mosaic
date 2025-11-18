@@ -41,9 +41,9 @@ const handleIconClick = (routeName: RouteNameTypes, params: any) => {
                 <EarthIcon color={ route.name === "Mosaic"? colors.text: 'gray'} size={iconSize} />
             </PressableIcon>
 
-            {/* <PressableIcon handleClick={() => handleIconClick("Collective", {})} routeName="Collective">
+            <PressableIcon handleClick={() => handleIconClick("Collective", {})} routeName="Collective">
                 <Component color={ route.name === "Collective"? colors.text: 'gray'} size={iconSize} />
-            </PressableIcon> */}
+            </PressableIcon>
 
             <PressableIcon handleClick={() => handleIconClick("Account", {user})} routeName="Account">
                 <SquareUser color={ route.name === "Account"? colors.text: 'gray'} size={iconSize} />

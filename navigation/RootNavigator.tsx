@@ -4,7 +4,7 @@ import HomeScreen from "../components/pages/Home/HomeScreen";
 import SearchScreen from "../components/pages/Search/SearchScreen";
 import MosaicScreen from "../components/pages/Mosaic/MosaicScreen";
 import AccountScreen from "../components/pages/Account/AccountScreen";
-import CollectiveScreen from "../components/pages/CollectiveScreen";
+import CollectiveScreen from "../components/pages/Collective/CollectiveScreen";
 import { UserType } from "../types/UserType";
 import LoginScreen from "../components/pages/Login/LoginScreen";
 import SignupScreen from "../components/pages/Signup/SignupScreen";
@@ -16,6 +16,9 @@ import { getAuth } from "firebase/auth";
 import { queryDBUserByFirebaseUID } from "../services/server/users/userApiFunctions";
 import { useUserContext } from "../services/userContext";
 import AccountMenuScreen from "../components/pages/Account/AccountMenuScreen";
+import CameraScreen from "../components/pages/Camera/CameraScreen";
+import { TileType } from "../types/TileType";
+import TileScreen from "../components/pages/Tile/TileScreen";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -26,6 +29,12 @@ export type RootStackParamList = {
   Login: undefined;
   Signup: undefined;
   AccountMenu: undefined;
+  Camera: { 
+    tile: TileType
+  },
+  Tile: {
+    tile: TileType
+  }
 };
 
 export type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -88,6 +97,8 @@ export default function RootNavigator() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="AccountMenu" component={AccountMenuScreen} />
+        <Stack.Screen name="Camera" component={CameraScreen} />
+        <Stack.Screen name="Tile" component={TileScreen} />
     </Stack.Navigator>
   );
 }

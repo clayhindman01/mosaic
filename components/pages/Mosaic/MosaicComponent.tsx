@@ -7,6 +7,8 @@ import UserFeedTile from "../Home/UserFeedTile/UserFeedTile";
 import { Camera } from "lucide-react-native";
 import StyledView from "../../styled/styledView";
 import { useAppTheme } from "../../../hooks/useAppTheme";
+import { useNavigation } from "@react-navigation/native";
+import { RootNavigationProp } from "../../../navigation/RootNavigator";
 
 interface Props {
     data: TileType[],
@@ -17,10 +19,16 @@ export default function MosaicComponent({data, setData} : Props) {
     const [ selectedTile, setSelectedTile ] = useState<TileType>();
     const [ isModalVisible, setIsModalVisible ] = useState<boolean>(false);
     const { colors } = useAppTheme();
+    const { navigate } = useNavigation<RootNavigationProp>();
 
     const handleMosaicPhotoPress = (tile: TileType) => {
         setSelectedTile(tile)
         setIsModalVisible(true)
+    }
+
+    const handleCameraIconPress = () => {
+        setIsModalVisible(false)
+        if (selectedTile) navigate("Camera", {tile: selectedTile})
     }
 
     const populateMosaic = () => {
@@ -72,7 +80,9 @@ export default function MosaicComponent({data, setData} : Props) {
             {selectedTile?.image_path? (<UserFeedTile tile={selectedTile} showBottom={false} />
             ) : (
                 <StyledView variant="none" style={{flex: 1,justifyContent: 'center', alignItems: 'center'}}>
-                    <Camera size={60} color={colors.primary}/>
+                    <TouchableOpacity onPress={handleCameraIconPress}>
+                        <Camera size={60} color={colors.primary}/>
+                    </TouchableOpacity>
                 </StyledView>
             )}
           </MosaicModal>

@@ -96,3 +96,31 @@ export const getSuggestedFriends = (body: {user_id: number}) => {
         }
     })  
 }
+
+export const addFriend = (friend_id: number, user_id: number) => {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(
+        axios.post(`${base_url}/addFriend`, { user_id, friend_id }, authHeaders)
+      );
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export const removeFriend = (friend_id: number, user_id: number) => {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(
+        axios.post(
+          `${base_url}/deleteFriend`,
+          { user_id, friend_id },
+          authHeaders
+        )
+      );
+    } catch (e) {
+      reject(e);
+    }
+  });
+};

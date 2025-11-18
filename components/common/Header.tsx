@@ -4,7 +4,7 @@ import StyledText from "../styled/styledText";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { RouteProp, useNavigation, useTheme } from "@react-navigation/native";
 import { RootNavigationProp, RootStackParamList } from "../../navigation/RootNavigator";
-import { Bell, Search, SquareUserIcon, UserSearchIcon } from "lucide-react-native";
+import { Bell, Plus, Search, SquareUserIcon, UserSearchIcon } from "lucide-react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 // type NavigationProps = NativeStackScreenProps<RootStackParamList, "Home">;
@@ -30,9 +30,23 @@ export default function Header<T extends keyof RootStackParamList>({route} : Nav
     }
 
     const NotificationsAndAccountComponent = () => {
-        return (
+        if (route.name === "Home") return (
             <StyledView variant="none">
                 <Bell color={colors.text} size={iconSize} />
+            </StyledView>
+        )
+
+        if (route.name === "Collective") return (
+            <TouchableOpacity>
+                <StyledView variant="none">
+                    <Plus color={colors.text} size={iconSize} />
+                </StyledView>
+            </TouchableOpacity>
+        )
+
+        return (
+            <StyledView variant="none">
+                <View style={{width: iconSize}} />
             </StyledView>
         )
     }

@@ -1,14 +1,17 @@
-import { Image, StyleSheet, View } from "react-native";
+import { Image, Pressable, StyleSheet, View } from "react-native";
 import { basicAuth, getImageURL } from "../../../../services/server/serverConfig";
-import { useTheme } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { TileType } from "../../../../types/TileType";
 import StyledView from "../../../styled/styledView";
 import StyledText from "../../../styled/styledText";
+import { RootNavigationProp } from "../../../../navigation/RootNavigator";
 
 export default function UserFeedProfilePhoto({tile}: {tile: TileType}) {
     const { colors } = useTheme();
+    const { navigate } = useNavigation<RootNavigationProp>() 
+
     return (
-        <View style={styles.container}>
+        <Pressable onPress={() => navigate("Account", {user: { user_id: tile.user_id}})} style={styles.container}>
                 <Image
                     source={tile.user_photo != null ? { uri: getImageURL(tile.user_photo), headers: { Authorization: basicAuth}}: require("../../../../assets/noPhoto.png")}
                     style={[styles.image, {borderColor: colors.primary}]}
@@ -16,7 +19,7 @@ export default function UserFeedProfilePhoto({tile}: {tile: TileType}) {
                 <StyledView variant="secondary" style={{ padding: 5, height: 25}}>
                     <StyledText center={true} variant="caption">{tile.display_name}</StyledText>
                 </StyledView>
-        </View>
+        </Pressable>
     )
 }
 

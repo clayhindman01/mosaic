@@ -40,7 +40,13 @@
             "fonts": ["./assets/fonts/Tinos-Regular.ttf", "./assets/fonts/Tinos-Bold.ttf"]
           }
         }
-    ]
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to take photos to complete tiles"
+        }
+      ]
   ]
   }
 }

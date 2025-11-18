@@ -49,7 +49,7 @@ export default function AccountMenuScreen({route}: Props) {
         )
     } 
 
-    const iconSize = 30;
+    const iconSize = 35;
     return (
         <PageWrapper route={route} showFooter={false} showHeader={false}>
             <StyledView variant="none" style={{
@@ -63,7 +63,6 @@ export default function AccountMenuScreen({route}: Props) {
                 <StyledText center={true} variant="h2">Settings</StyledText>
                 <View style={{width: iconSize}} />
             </StyledView>
-            {null}
             <AccountMenuItem text="Change Theme" />
             <AccountMenuItem text="Update User Photo" />
             <AccountMenuItem text="Sign Out" textStyle={{color: 'red'}} onPress={handleSignOutUserPress}/>
