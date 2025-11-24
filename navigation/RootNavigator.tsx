@@ -19,6 +19,8 @@ import AccountMenuScreen from "../components/pages/Account/AccountMenuScreen";
 import CameraScreen from "../components/pages/Camera/CameraScreen";
 import { TileType } from "../types/TileType";
 import TileScreen from "../components/pages/Tile/TileScreen";
+import { CollectiveType } from "../types/CollectiveType";
+import CollectiveViewScreen from "../components/pages/CollectiveView/CollectiveViewScreen";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -34,6 +36,9 @@ export type RootStackParamList = {
   },
   Tile: {
     tile: TileType
+  },
+  CollectiveView: {
+    collective: CollectiveType
   }
 };
 
@@ -99,6 +104,7 @@ export default function RootNavigator() {
         <Stack.Screen name="AccountMenu" component={AccountMenuScreen} />
         <Stack.Screen name="Camera" component={CameraScreen} />
         <Stack.Screen name="Tile" component={TileScreen} />
+        <Stack.Screen name="CollectiveView" component={CollectiveViewScreen} />
     </Stack.Navigator>
   );
 }

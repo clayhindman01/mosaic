@@ -10,3 +10,25 @@ export const getCurrentMosaic = () => {
         }
     })
 }
+
+export const getCurrentMosaicId = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(axios.get(`${base_url}/getCurrentMosaicId`));
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+export const getTilesForMosaic = (mosaicId : number) => {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(
+        axios.get(`${base_url}/getTilesForMosaic/${mosaicId}`)
+      );
+    } catch (e) {
+      reject(e);
+    }
+  });
+};

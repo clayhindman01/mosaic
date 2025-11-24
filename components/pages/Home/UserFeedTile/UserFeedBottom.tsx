@@ -7,12 +7,14 @@ import Reactions from "./Reactions";
 import { useState } from "react";
 import BottomSheetModal from "../../../common/Menu";
 import CommentMenu from "./CommentMenu";
+import { CommentType } from "../../../../types/CommentType";
 
 export default function UserFeedBottom({tile}: {tile : TileType}) {
     const {colors} = useTheme();
     const [ isModalVisible, setIsModalVisible ] = useState<boolean>(false)
     const [ isScrolling, setIsScrolling] = useState<boolean>(false);
 
+ 
     return (
         <>
         <StyledView variant="none" style={styles.container} >
@@ -26,7 +28,7 @@ export default function UserFeedBottom({tile}: {tile : TileType}) {
             </TouchableOpacity>
         </StyledView>
             <BottomSheetModal isVisible={isModalVisible} setIsVisible={setIsModalVisible} isScrolling={isScrolling}>
-                <CommentMenu comments={tile.comments} setIsScrolling={setIsScrolling}/>
+                <CommentMenu tile={tile} setIsScrolling={setIsScrolling} setIsModalVisible={setIsModalVisible} />
             </BottomSheetModal>
         </>
     )

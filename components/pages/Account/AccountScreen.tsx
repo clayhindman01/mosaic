@@ -70,7 +70,15 @@ export default function AccountScreen({route}: Props) {
     
   }
 
-if (isLoading) {
+  const EmptyListComponent = () => {
+    return (
+      <View style={{flex: 1, height: Dimensions.get("screen").height - 250, alignItems: 'center', justifyContent: 'center'}}>
+        <StyledText style={{color: 'gray'}}>{`${accountUser?.display_name} has not posted any tiles`}</StyledText>
+      </View>
+    )
+  } 
+
+  if (isLoading) {
         return (
             <PageWrapper route={route} showHeader={false}>
                 <View style={{flex: 1, justifyContent: 'center'}} >
@@ -105,7 +113,7 @@ if (isLoading) {
       </StyledView>
 
       {/* Posts */}
-      {posts.length != 0 && <FlatList
+      <FlatList
         data={posts}
         numColumns={2}
         renderItem ={(({item}: {item: TileType}) => {
@@ -116,6 +124,9 @@ if (isLoading) {
           ) 
           return (<Text>test</Text>)
         })}
+        ListEmptyComponent={() => (
+          <EmptyListComponent />
+        )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.gridContainer}
         refreshControl={
@@ -126,7 +137,7 @@ if (isLoading) {
         removeClippedSubviews
         maxToRenderPerBatch={10}
         updateCellsBatchingPeriod={100}
-      />}
+      />
     </PageWrapper>
   );
 }

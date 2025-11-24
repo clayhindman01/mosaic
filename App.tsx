@@ -1,4 +1,4 @@
-import { useColorScheme } from 'react-native';
+import { KeyboardAvoidingView, Platform, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DarkTheme, DefaultTheme, NavigationContainer, Theme } from '@react-navigation/native';
 import RootNavigator from './navigation/RootNavigator';
@@ -15,9 +15,14 @@ export default function App() {
   return (
     <userContext.Provider value={{ user, setUser }}>
       <NavigationContainer theme={user?.theme == "dark" ? theme.dark : theme.light}>
-        <SafeAreaProvider>
-          <RootNavigator />
-        </SafeAreaProvider>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          style={{ flex: 1 }}
+        >
+          <SafeAreaProvider>
+            <RootNavigator />
+          </SafeAreaProvider>
+        </KeyboardAvoidingView>
       </NavigationContainer>
     </userContext.Provider>
   );

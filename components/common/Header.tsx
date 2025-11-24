@@ -4,7 +4,7 @@ import StyledText from "../styled/styledText";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { RouteProp, useNavigation, useTheme } from "@react-navigation/native";
 import { RootNavigationProp, RootStackParamList } from "../../navigation/RootNavigator";
-import { Bell, Plus, Search, SquareUserIcon, UserSearchIcon } from "lucide-react-native";
+import { Bell, ChevronLeft, Plus, Search, SquareUserIcon, UserSearchIcon } from "lucide-react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 // type NavigationProps = NativeStackScreenProps<RootStackParamList, "Home">;
@@ -18,13 +18,29 @@ export default function Header<T extends keyof RootStackParamList>({route} : Nav
     const { colors } = useTheme();
 
     const iconSize = 25;
+    const biggerIconSize = 30;
+
+    const navbarScreens = [
+        "Home",
+        "Mosaic",
+        "Account",
+        "Collective"
+    ]
 
     const SearchAndBackComponent = () => {
-        return (
+        if (navbarScreens.includes(route.name)) return (
             <TouchableOpacity onPress={() => navigation.navigate("Search")}>
                 <StyledView variant="none" >
                    <Search color={colors.text} size={iconSize} /> 
                 </StyledView> 
+            </TouchableOpacity>
+        )
+        
+        return (
+            <TouchableOpacity onPress={() => navigation.pop()}>
+                <StyledView variant="none">
+                    <ChevronLeft color={colors.text} size={biggerIconSize} />
+                </StyledView>
             </TouchableOpacity>
         )
     }
@@ -36,10 +52,10 @@ export default function Header<T extends keyof RootStackParamList>({route} : Nav
             </StyledView>
         )
 
-        if (route.name === "Collective") return (
+        if (route.name === "Collective" || route.name === "CollectiveView") return (
             <TouchableOpacity>
                 <StyledView variant="none">
-                    <Plus color={colors.text} size={iconSize} />
+                    <Plus color={colors.text} size={biggerIconSize} />
                 </StyledView>
             </TouchableOpacity>
         )

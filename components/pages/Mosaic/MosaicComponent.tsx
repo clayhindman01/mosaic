@@ -65,6 +65,7 @@ export default function MosaicComponent({data, setData} : Props) {
     return (
         <ScrollView
         nestedScrollEnabled
+        style={{ borderRadius: 10 }}
         maximumZoomScale={10}
         minimumZoomScale={1}
         showsHorizontalScrollIndicator={false}

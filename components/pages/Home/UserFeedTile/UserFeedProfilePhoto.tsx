@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         left: 10,
         top: 60,
         width: '95%',
-        zIndex: 10,
+        zIndex: 2,
         flexDirection: 'row',
         justifyContent: 'space-between',
         opacity: 0.85

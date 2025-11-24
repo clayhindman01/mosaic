@@ -22,7 +22,7 @@ export default function NavBar<T extends keyof RootStackParamList>({route}: Prop
     const { user } = useUserContext();
 
 const handleIconClick = (routeName: RouteNameTypes, params: any) => {
-        navigation.navigate(routeName, params)
+        navigation.push(routeName, params)
     }
 
     const iconSize = 30;

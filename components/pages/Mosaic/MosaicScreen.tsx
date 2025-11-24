@@ -33,7 +33,7 @@ export default function MosaicScreen({ route }: Props) {
 
   return (
     <PageWrapper route={route}>
-      <StyledView variant="none">
+      <StyledView variant="none" >
         <FlatList
           data={previousMosaics}
           renderItem ={(({item}: {item: any}) => (
@@ -41,8 +41,8 @@ export default function MosaicScreen({ route }: Props) {
           ))}
           ListHeaderComponent={() => (
             <>
-              <StyledView variant="third"> 
-                <StyledText variant="h2" center={true} style={{paddingBottom: 10}}>Current Mosaic</StyledText>
+              <StyledView variant="none" padded={false}> 
+                {/* <StyledText variant="h2" center={true} style={{paddingBottom: 10}}>Current Mosaic</StyledText> */}
                 <MosaicComponent data={currentMosaicData} setData={setCurrentMosaicData}/>
               </StyledView>
               <StyledText variant="h2" center={true} style={{padding: 10}}>Past Mosaics</StyledText>
