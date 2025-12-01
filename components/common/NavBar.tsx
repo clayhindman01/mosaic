@@ -5,6 +5,7 @@ import { Component, EarthIcon, Home, Search, SquareUser, UserSearchIcon } from "
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { RouteNameTypes } from "../../navigation/RouteName";
 import { useUserContext } from "../../services/userContext";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type Props<T extends keyof RootStackParamList> = {
     route: RouteProp<RootStackParamList, T>;
@@ -20,6 +21,7 @@ export default function NavBar<T extends keyof RootStackParamList>({route}: Prop
     const navigation = useNavigation<RootNavigationProp>()
     const { colors } = useTheme();
     const { user } = useUserContext();
+    const insets = useSafeAreaInsets();
 
 const handleIconClick = (routeName: RouteNameTypes, params: any) => {
         navigation.push(routeName, params)
@@ -28,7 +30,7 @@ const handleIconClick = (routeName: RouteNameTypes, params: any) => {
     const iconSize = 30;
 
     return (
-        <StyledView variant="third" style={styles.container} shadow={true}>
+        <StyledView variant="third" style={[styles.container, {paddingBottom: insets.bottom}]} shadow={true}>
             <PressableIcon handleClick={() => handleIconClick("Home", {})} routeName="Home">
                 <Home color={ route.name === "Home" ? colors.text : 'gray' } size={iconSize} />
             </PressableIcon>
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        height: 80,
+        minHeight: 80,
         flexDirection: 'row',
         justifyContent: 'space-around'
     }

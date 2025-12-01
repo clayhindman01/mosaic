@@ -16,3 +16,19 @@ export const getCollectivesForUser = (user_id: number) => {
     }
   });
 };
+
+export const getUsersForCollective = (collective_id: number) => {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(
+        axios.post(
+          `${base_url}/getUsersForCollective`,
+          { collective_id },
+          authHeaders
+        )
+      );
+    } catch (e) {
+      reject(e);
+    }
+  });
+};

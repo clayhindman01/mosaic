@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
   },
   gridContainer: {
-    paddingBottom: 80,
+    paddingBottom: 25,
   },
   postTile: {
     width: tileSize,
