@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import PageWrapper from "../PageWrapper"
 import { RootStackParamList } from "../../../navigation/RootNavigator";
-import { StyleSheet } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import AccountCollectiveProfilePhoto from "../../common/AccountCollectiveProfilePhoto";
 import StyledView from "../../styled/styledView";
 import { useEffect, useState } from "react";
@@ -9,9 +9,12 @@ import ColletiveScreenMenu, { MenuEnum } from "./CollectiveViewMenu";
 import StyledText from "../../styled/styledText";
 import { getCommentsForCollective } from "../../../services/server/comments/commentApiFunctions";
 import Chat from "./Chat";
-import { getUsersForCollective } from "../../../services/server/collectives/collectiveAPIFunctions";
+import { getMosaicIdsForCollective, getUsersForCollective } from "../../../services/server/collectives/collectiveAPIFunctions";
 import Members from "./Members";
 import { CommentType } from "../../../types/CommentType";
+import { TileType } from "../../../types/TileType";
+import MosaicComponent from "../Mosaic/MosaicComponent";
+import { getTilesForMosaic } from "../../../services/server/mosaics/mosaicApiFunctions";
 
 type Props = NativeStackScreenProps<RootStackParamList, "CollectiveView">;
 
@@ -20,6 +23,8 @@ export default function CollectiveViewScreen ({route} : Props) {
     const [ selectedTab, setSelectedTab ] = useState<MenuEnum>("Mosaics");
     const [ comments, setComments ] = useState<CommentType[]>([]);
     const [ members, setMembers ] = useState([]);
+    const [ mosaicData, setMosaicData ] = useState<TileType[]>([]);
+    const [ isLoading, setIsLoading ] = useState<boolean>(true);
 
     useEffect(() => {
         getUsersForCollective(collective.collective_id).then((res: any) => {
@@ -28,7 +33,17 @@ export default function CollectiveViewScreen ({route} : Props) {
         getCommentsForCollective({collective_id: collective.collective_id}).then((res: any) => {
             setComments(res.data)
         })
+        getMosaicIdsForCollective(collective.collective_id).then((res: any) => {
+            getTilesForMosaic(res.data[0].mosaic_id).then((res: any) => {
+                setMosaicData(res.data)
+                setIsLoading(false)
+            })
+        }).catch(() => {
+            setMosaicData([]);
+            setIsLoading(false)
+        })
     }, [])
+
     return (
         <PageWrapper route={route}>
             <StyledView variant="none">
@@ -38,6 +53,16 @@ export default function CollectiveViewScreen ({route} : Props) {
                 </StyledView>
                 <ColletiveScreenMenu selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
                 
+                {(selectedTab === "Mosaics") && (!isLoading ? (
+                    mosaicData.length === 0 ?
+                    <NoMosaicComponent />
+                    : <MosaicComponent data={mosaicData} /> 
+                ) : (
+                    <LoadingComponent />
+                ))}
+                {/* {(selectedTab === "Mosaics") && (!isLoading ? <MosaicComponent data={mosaicData} /> : (
+                    <LoadingComponent />
+                ))} */}
                 {selectedTab === "Members" && <Members members={members} />}
                 {selectedTab === "Chat" && <Chat comments={comments} collective_id={collective.collective_id} setComments={setComments} />}
             </StyledView>
@@ -45,6 +70,18 @@ export default function CollectiveViewScreen ({route} : Props) {
         </PageWrapper>
     )
 }
+
+const LoadingComponent = () => (
+    <View style={{height: '75%', justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator />
+    </View>
+)
+
+const NoMosaicComponent = () => (
+    <View style={{height: '75%', justifyContent: 'center', alignItems: 'center'}}>
+        <StyledText>Click the + button to create a new mosaic</StyledText>
+    </View>
+)
 
 const styles = StyleSheet.create({
     collectiveHeader: {

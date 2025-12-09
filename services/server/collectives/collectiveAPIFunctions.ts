@@ -32,3 +32,16 @@ export const getUsersForCollective = (collective_id: number) => {
     }
   });
 };
+
+export const getMosaicIdsForCollective = (collective_id: number) => {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(
+        axios.post(`${base_url}/getMosaicIdsForCollective`, { collective_id }, authHeaders)
+      )
+    }
+    catch (e) {
+      reject(e);
+    }
+  })
+}

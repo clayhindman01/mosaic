@@ -36,7 +36,7 @@ export default function HomeScreen({ route }: Props) {
         user_photo: null,
         reactions: null,
         comments: [{
-            comment_date: new Date(),
+            comment_date: new Date().toString(),
             comment_desc: 'test',
             comment_id: 1,
             display_name: 'test',
@@ -100,7 +100,9 @@ export default function HomeScreen({ route }: Props) {
                     )
                 })}
                 ListHeaderComponent={() => (
-                    <Header route={route} />
+                    <View style={{margin: -10}}>
+                        <Header route={route} />
+                    </View>
                 )}
                 stickyHeaderIndices={[1]}
                 ListEmptyComponent={() => (

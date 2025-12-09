@@ -12,10 +12,9 @@ import { RootNavigationProp } from "../../../navigation/RootNavigator";
 
 interface Props {
     data: TileType[],
-    setData: (input: TileType[]) => void
 }
 
-export default function MosaicComponent({data, setData} : Props) {
+export default function MosaicComponent({data} : Props) {
     const [ selectedTile, setSelectedTile ] = useState<TileType>();
     const [ isModalVisible, setIsModalVisible ] = useState<boolean>(false);
     const { colors } = useAppTheme();

@@ -50,6 +50,7 @@ export default function Chat({comments, collective_id, setComments}: Props) {
                         <AccountCollectiveProfilePhoto photoUrl={item.user_photo} photoSize={35} />
                         <View style={{marginLeft: 5,}}>
                             <StyledText variant="caption">{item.display_name}</StyledText>
+                            <StyledText variant="caption">{new Date(item.comment_date).toLocaleDateString()}</StyledText>
                             <StyledText>{item.comment_desc}</StyledText>
                         </View>
                     </StyledView>   
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 10,
         position: 'absolute',
-        bottom: 320,
+        bottom: 325,
     },
     textInput: {
         width: "90%",

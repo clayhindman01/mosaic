@@ -21,6 +21,9 @@ import { TileType } from "../types/TileType";
 import TileScreen from "../components/pages/Tile/TileScreen";
 import { CollectiveType } from "../types/CollectiveType";
 import CollectiveViewScreen from "../components/pages/CollectiveView/CollectiveViewScreen";
+import NewCollectiveScreen from "../components/pages/NewCollective/NewCollectiveScreen";
+import NewMosaicScreen from "../components/pages/NewMosaic/NewMosiacScreen";
+import NewCollectiveAddMembersScreen from "../components/pages/NewCollective/NewCollectiveAddMembersScreen";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -39,8 +42,26 @@ export type RootStackParamList = {
   },
   CollectiveView: {
     collective: CollectiveType
+  },
+  NewCollective: undefined,
+  NewCollectiveAddMembers: {
+    collectiveName: string,
+    collectivePhoto?: string
   }
+  NewMosaic: undefined
 };
+
+export type NavigationRoutes = 
+  "Home" | 
+  "Account" |
+  "Mosaic" |
+  "Collective" |
+  "Camera" |
+  "Tile" |
+  "CollectiveView" |
+  "NewMosaic" |
+  "NewCollectiveAddMembers" |
+  "NewCollective";
 
 export type RootNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -105,6 +126,9 @@ export default function RootNavigator() {
         <Stack.Screen name="Camera" component={CameraScreen} />
         <Stack.Screen name="Tile" component={TileScreen} />
         <Stack.Screen name="CollectiveView" component={CollectiveViewScreen} />
+        <Stack.Screen name="NewCollective" component={NewCollectiveScreen} />
+        <Stack.Screen name="NewMosaic" component={NewMosaicScreen} />
+        <Stack.Screen name="NewCollectiveAddMembers" component={NewCollectiveAddMembersScreen} />
     </Stack.Navigator>
   );
 }

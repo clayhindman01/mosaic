@@ -24,7 +24,7 @@ export default function CommentMenu({ tile, setIsScrolling, setIsModalVisible }:
 
   return (
     <View style={{ flex: 1 }}> 
-      <StyledText center={true} variant="h3">Comments</StyledText>
+      <StyledText center={true} variant="h2">Comments</StyledText>
       <View style={styles.border} />
 
       <FlatList

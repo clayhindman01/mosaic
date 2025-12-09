@@ -43,7 +43,7 @@ export default function MosaicScreen({ route }: Props) {
             <>
               <StyledView variant="none" padded={false}> 
                 {/* <StyledText variant="h2" center={true} style={{paddingBottom: 10}}>Current Mosaic</StyledText> */}
-                <MosaicComponent data={currentMosaicData} setData={setCurrentMosaicData}/>
+                <MosaicComponent data={currentMosaicData} />
               </StyledView>
               <StyledText variant="h2" center={true} style={{padding: 10}}>Past Mosaics</StyledText>
             </>
