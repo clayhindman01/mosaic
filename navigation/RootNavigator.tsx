@@ -18,7 +18,6 @@ import { useUserContext } from "../services/userContext";
 import AccountMenuScreen from "../components/pages/Account/AccountMenuScreen";
 import CameraScreen from "../components/pages/Camera/CameraScreen";
 import { TileType } from "../types/TileType";
-import TileScreen from "../components/pages/Tile/TileScreen";
 import { CollectiveType } from "../types/CollectiveType";
 import CollectiveViewScreen from "../components/pages/CollectiveView/CollectiveViewScreen";
 import NewCollectiveScreen from "../components/pages/NewCollective/NewCollectiveScreen";
@@ -35,9 +34,6 @@ export type RootStackParamList = {
   Signup: undefined;
   AccountMenu: undefined;
   Camera: { 
-    tile: TileType
-  },
-  Tile: {
     tile: TileType
   },
   CollectiveView: {
@@ -57,7 +53,6 @@ export type NavigationRoutes =
   "Mosaic" |
   "Collective" |
   "Camera" |
-  "Tile" |
   "CollectiveView" |
   "NewMosaic" |
   "NewCollectiveAddMembers" |
@@ -124,7 +119,6 @@ export default function RootNavigator() {
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="AccountMenu" component={AccountMenuScreen} />
         <Stack.Screen name="Camera" component={CameraScreen} />
-        <Stack.Screen name="Tile" component={TileScreen} />
         <Stack.Screen name="CollectiveView" component={CollectiveViewScreen} />
         <Stack.Screen name="NewCollective" component={NewCollectiveScreen} />
         <Stack.Screen name="NewMosaic" component={NewMosaicScreen} />

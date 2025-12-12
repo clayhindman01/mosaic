@@ -77,7 +77,8 @@ export default function MosaicComponent({data} : Props) {
             }
           </View>
           <MosaicModal isVisible={isModalVisible} setIsVisible={setIsModalVisible} tile={selectedTile}>
-            {selectedTile?.image_path? (<UserFeedTile tile={selectedTile} showBottom={false} />
+            {selectedTile?.image_path? (
+                <UserFeedTile tile={selectedTile}/>
             ) : (
                 <StyledView variant="none" style={{flex: 1,justifyContent: 'center', alignItems: 'center'}}>
                     <TouchableOpacity onPress={handleCameraIconPress}>

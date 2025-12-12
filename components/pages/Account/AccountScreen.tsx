@@ -22,6 +22,8 @@ import { basicAuth, getImageURL } from "../../../services/server/serverConfig";
 import { Settings, UserMinus, UserPlus } from "lucide-react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useUserContext } from "../../../services/userContext";
+import AccountTileModal from "./AccountTileModal";
+import UserFeedTile from "../Home/UserFeedTile/UserFeedTile";
 
 const { width } = Dimensions.get("window");
 
@@ -35,6 +37,8 @@ export default function AccountScreen({route}: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { navigate } = useNavigation<RootNavigationProp>();
   const [isFollowing, setIsFollowing] = useState<boolean>();
+  const [ isModalVisible, setIsModalVisible ] = useState<boolean>(false)
+  const [ selectedTile, setSelectedTile ] = useState<TileType>()
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -78,6 +82,11 @@ export default function AccountScreen({route}: Props) {
     )
   } 
 
+  const handleTilePress = (tile: TileType) => {
+    setIsModalVisible(true);
+    setSelectedTile(tile)
+  }
+
   if (isLoading) {
         return (
             <PageWrapper route={route} showHeader={false}>
@@ -118,7 +127,7 @@ export default function AccountScreen({route}: Props) {
         numColumns={2}
         renderItem ={(({item}: {item: TileType}) => {
           if (item.image_path) return (
-            <TouchableOpacity style={styles.postTile} activeOpacity={0.8} onPress={() => navigate("Tile", {tile: item})}>
+            <TouchableOpacity style={styles.postTile} activeOpacity={0.8} onPress={() => handleTilePress(item)}>
               <Image source={{ uri: getImageURL(item.image_path) }} style={styles.postImage} />
             </TouchableOpacity>
           ) 
@@ -138,6 +147,9 @@ export default function AccountScreen({route}: Props) {
         maxToRenderPerBatch={10}
         updateCellsBatchingPeriod={100}
       />
+      <AccountTileModal setIsVisible={setIsModalVisible} isVisible={isModalVisible}>
+        {selectedTile && <UserFeedTile tile={selectedTile} />}
+      </AccountTileModal>
     </PageWrapper>
   );
 }

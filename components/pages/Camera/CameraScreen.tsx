@@ -3,7 +3,7 @@ import { RootNavigationProp, RootStackParamList } from "../../../navigation/Root
 import PageWrapper from "../PageWrapper";
 import StyledView from "../../styled/styledView";
 import { ActivityIndicator, Dimensions, Image, StyleSheet, TouchableOpacity, View } from "react-native";
-import { ChevronLeft, SwitchCamera} from "lucide-react-native";
+import { BookImage, ChevronLeft, Library, SwitchCamera} from "lucide-react-native";
 import { useNavigation } from "@react-navigation/native";
 import { CameraType, CameraView, useCameraPermissions } from "expo-camera"
 import { useRef, useState } from "react";
@@ -92,10 +92,10 @@ export default function CameraScreen({route}: Props) {
                 margin: 10
             }} />
 
-            <View style={{ paddingBottom: insets.bottom, flexDirection: 'row', alignItems: "center", justifyContent: 'space-between' }}>
-                <StyledView variant="none">
+            <StyledView variant="none" style={{ paddingBottom: insets.bottom, flexDirection: 'row', alignItems: "center", justifyContent: 'space-between' }}>
+                <StyledView variant="buttonColor">
                     <TouchableOpacity onPress={toggleCameraFacing}>
-                        <SwitchCamera size={iconSize} />
+                        <SwitchCamera size={iconSize} color={colors.secondary} />
                     </TouchableOpacity>
                 </StyledView>
 
@@ -109,10 +109,10 @@ export default function CameraScreen({route}: Props) {
                     }} />
                 </TouchableOpacity>
 
-                <StyledView variant="none">
-                    <View />
+                <StyledView variant="buttonColor">
+                    <BookImage size={iconSize} color={colors.secondary} />
                 </StyledView>
-            </View>
+            </StyledView>
             </CameraView>
         </View>
     )
