@@ -6,8 +6,8 @@ import StyledView from "../../styled/styledView";
 import StyledText from "../../styled/styledText";
 import { ChevronLeft } from "lucide-react-native";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
 import { signOutUser } from "../../../services/firebase/firebaseFunctions";
-import { memo } from "react";
 
 type Props = NativeStackScreenProps<RootStackParamList, "AccountMenu">
 
@@ -49,6 +49,29 @@ export default function AccountMenuScreen({route}: Props) {
         )
     } 
 
+    const pickImage = async () => {
+        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        if (!permissionResult.granted) {
+            Alert.alert('Permission required', 'Permission to access the media library is required.');
+            return;
+        }
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images', 'videos'],
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.canceled) {
+            ({uri: result.assets[0].uri});
+            null
+        }
+    };
+
     const iconSize = 35;
     return (
         <PageWrapper route={route} showFooter={false} showHeader={false}>
@@ -63,8 +86,8 @@ export default function AccountMenuScreen({route}: Props) {
                 <StyledText center={true} variant="h2">Settings</StyledText>
                 <View style={{width: iconSize}} />
             </StyledView>
-            <AccountMenuItem text="Change Theme" />
-            <AccountMenuItem text="Update User Photo" />
+            <AccountMenuItem text="Change Theme"/>
+            <AccountMenuItem text="Update User Photo" onPress={pickImage} />
             <AccountMenuItem text="Sign Out" textStyle={{color: 'red'}} onPress={handleSignOutUserPress}/>
             <AccountMenuItem text="Delete Account" textStyle={{color: 'red'}} />
         </PageWrapper>

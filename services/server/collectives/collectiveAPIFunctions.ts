@@ -45,3 +45,13 @@ export const getMosaicIdsForCollective = (collective_id: number) => {
     }
   })
 }
+
+export const createNewCollective = (body: any) => {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(axios.post(`${base_url}/createNewCollective`, body, authHeaders));
+    } catch (e) {
+      reject(e);
+    }
+  });
+};

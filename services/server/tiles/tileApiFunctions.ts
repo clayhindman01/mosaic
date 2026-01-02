@@ -24,3 +24,26 @@ export const getUserFeedData = (user_id: number) => {
     }
   });
 };
+
+export const updateTile = async (
+  photo: {uri: string},
+  user_id: number,
+  tile_id: number,
+  isPrivate: boolean = false
+) => {
+  try {
+    const splitURI = photo.uri.split("/");
+    const body = {
+      user_id: user_id,
+      tile_id: tile_id,
+      image_path: splitURI[splitURI.length - 1],
+      is_private: isPrivate,
+    };
+    console.log("updateTile body", body)
+    await axios.post(`${base_url}/updateTile`, body, authHeaders).then((r) => {
+      console.log("Tile Updated", r.data);
+    });
+  } catch (e) {
+    console.error("Exeption in updateTile", e);
+  }
+};
